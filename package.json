@@ -1,0 +1,97 @@
+{
+  "name": "gti-data-visualizer",
+  "version": "1.0.0",
+  "description": "Интерактивный визуализатор данных ГТИ с симуляцией",
+  "main": "dist/main.js",
+  "homepage": "./",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:renderer\" \"npm run dev:main\"",
+    "dev:renderer": "webpack serve --mode development --config webpack.renderer.config.js",
+    "dev:main": "webpack --mode development --config webpack.main.config.js --watch",
+    "build": "npm run build:main && npm run build:renderer",
+    "build:main": "webpack --mode production --config webpack.main.config.js",
+    "build:renderer": "webpack --mode production --config webpack.renderer.config.js",
+    "start": "electron .",
+    "pack": "npm run build && electron-builder",
+    "dist": "npm run build && electron-builder --publish=never",
+    "dist:win": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "typescript",
+    "data-visualization",
+    "gti",
+    "well-logging"
+  ],
+  "author": "GTI Visualizer",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "concurrently": "^8.2.2",
+    "css-loader": "^6.8.1",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.202",
+    "@types/papaparse": "^5.3.14",
+    "antd": "^5.12.8",
+    "date-fns": "^3.0.6",
+    "lodash": "^4.17.21",
+    "papaparse": "^5.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.9.0",
+    "xlsx": "^0.18.5"
+  },
+  "build": {
+    "appId": "com.gti.visualizer",
+    "productName": "GTI Data Visualizer",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "dmg"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
